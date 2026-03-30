@@ -1729,8 +1729,9 @@ public final class PalindromeSolutions {
                 }
                 return digits.indexOf('0') >= 0 ? "0" : "";
             }
-            String right = reverse(left.toString());
-            return left + (middle == -1 ? "" : middle) + right;
+            String leftHalf = left.toString();
+            String right = reverse(leftHalf);
+            return leftHalf + (middle == -1 ? "" : Integer.toString(middle)) + right;
         }
 
         public static String smallestPalindromicNumberLargerThan(String numeric) {
