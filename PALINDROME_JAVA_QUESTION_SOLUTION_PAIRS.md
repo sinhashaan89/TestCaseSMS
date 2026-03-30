@@ -1,1065 +1,635 @@
-# Java Palindrome Question + Solution Pairs
+# Java Palindrome Question + Solution Pairs (All 113)
 
-This guide turns the palindrome question bank into question-and-solution notes.
-Each section covers a major palindrome type with a representative Java solution,
-a short explanation, and time/space complexity.
+This guide expands the original palindrome question bank so every question is
+covered one by one.
 
-Full runnable implementations live in:
+For brevity, each entry shows either:
+
+- the exact Java method to call from `src/main/java/PalindromeSolutions.java`, or
+- a compact Java snippet when the question is more strategy-based than
+  utility-method based.
+
+Full runnable implementations already in the repository live in:
 
 - `src/main/java/PalindromeSolutions.java`
 
 ---
 
-## 1) Basic String Palindrome
+## 1) Basic String Palindrome Questions
 
-### Question
+### 1. Write a Java program to check whether a given string is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.BasicStringSolutions.isPalindrome("level");`
+- **Explanation:** Uses two pointers to compare mirrored characters from both ends.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-Write a Java program to check whether a given string is a palindrome.
+### 2. Check if a string is a palindrome using the two-pointer approach.
+- **Java solution:** `boolean result = PalindromeSolutions.BasicStringSolutions.isPalindrome("radar");`
+- **Explanation:** This is the standard two-pointer solution: move inward while the characters match.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-### Java Solution
+### 3. Check if a string is a palindrome without using built-in reverse functions.
+- **Java solution:** `boolean result = PalindromeSolutions.BasicStringSolutions.isPalindrome("madam");`
+- **Explanation:** The method never builds a reversed copy, so it avoids extra string creation.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-```java
-public static boolean isPalindrome(String value) {
-    if (value == null) {
-        return false;
-    }
-    int left = 0;
-    int right = value.length() - 1;
+### 4. Check if a string is a palindrome using recursion.
+- **Java solution:** `boolean result = PalindromeSolutions.BasicStringSolutions.isPalindromeRecursive("level");`
+- **Explanation:** Recursively compare the outer characters and shrink the range toward the center.
+- **Complexity:** Time `O(n)`, Space `O(n)` because of the recursion stack.
 
-    while (left < right) {
-        if (value.charAt(left) != value.charAt(right)) {
-            return false;
-        }
-        left++;
-        right--;
-    }
-    return true;
-}
-```
+### 5. Check if a string is a palindrome using a stack.
+- **Java solution:** `boolean result = PalindromeSolutions.BasicStringSolutions.isPalindromeWithStack("level");`
+- **Explanation:** Push all characters, then compare the original string with the reverse order popped from the stack.
+- **Complexity:** Time `O(n)`, Space `O(n)`.
 
-### Explanation
+### 6. Check if a character array is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.BasicStringSolutions.isCharArrayPalindrome(new char[]{'r', 'a', 'd', 'a', 'r'});`
+- **Explanation:** The same mirrored two-pointer logic works directly on mutable character arrays.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-- Use two pointers: one from the start and one from the end.
-- Compare matching characters while moving inward.
-- The first mismatch means the string is not a palindrome.
-- If all mirrored characters match, the string is a palindrome.
+### 7. Return `true` if a string is a palindrome, otherwise return `false`.
+- **Java solution:** `boolean result = PalindromeSolutions.BasicStringSolutions.isPalindrome("civic");`
+- **Explanation:** This is the boolean-return form of the basic palindrome check.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-### Complexity
-
-- **Time:** `O(n)`
-- **Space:** `O(1)`
-
----
-
-## 2) Palindrome Ignoring Case, Spaces, and Punctuation
-
-### Question
-
-Validate whether a sentence like `"A man, a plan, a canal: Panama"` is a palindrome
-while ignoring case and non-alphanumeric characters.
-
-### Java Solution
-
-```java
-public static boolean isPalindromeAlphaNumeric(String value) {
-    if (value == null) {
-        return false;
-    }
-
-    int left = 0;
-    int right = value.length() - 1;
-
-    while (left < right) {
-        while (left < right && !Character.isLetterOrDigit(value.charAt(left))) {
-            left++;
-        }
-        while (left < right && !Character.isLetterOrDigit(value.charAt(right))) {
-            right--;
-        }
-
-        if (Character.toLowerCase(value.charAt(left))
-                != Character.toLowerCase(value.charAt(right))) {
-            return false;
-        }
-
-        left++;
-        right--;
-    }
-    return true;
-}
-```
-
-### Explanation
-
-- Skip all characters that should not participate in the comparison.
-- Convert letters to the same case before comparing.
-- This is the standard interview solution for "valid palindrome" phrases.
-
-### Complexity
-
-- **Time:** `O(n)`
-- **Space:** `O(1)`
+### 8. Count how many words in a list are palindromes.
+- **Java solution:** `long count = PalindromeSolutions.BasicStringSolutions.countPalindromeWords(List.of("level", "java", "madam"));`
+- **Explanation:** Iterate through the list and apply the basic palindrome test to each word.
+- **Complexity:** Time `O(total_characters)`, Space `O(1)` extra.
 
 ---
 
-## 3) Remove At Most One Character to Make a Palindrome
+## 2) Case, Spaces, and Special Character Variants
 
-### Question
+### 9. Check whether a string is a palindrome ignoring case differences.
+- **Java solution:** `boolean result = PalindromeSolutions.NormalizedStringSolutions.isPalindromeIgnoreCase("Level");`
+- **Explanation:** Compare mirrored characters after converting them to the same letter case.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-Check whether a string can become a palindrome after removing at most one character.
+### 10. Check whether a sentence is a palindrome ignoring spaces.
+- **Java solution:** `boolean result = PalindromeSolutions.NormalizedStringSolutions.isPalindromeIgnoreSpaces("n u r s e s r u n");`
+- **Explanation:** Skip whitespace while comparing from both ends.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-### Java Solution
+### 11. Check whether a sentence is a palindrome ignoring spaces and punctuation.
+- **Java solution:** `boolean result = PalindromeSolutions.NormalizedStringSolutions.isPalindromeAlphaNumeric("Able was I, ere I saw Elba.");`
+- **Explanation:** Skip every non-alphanumeric character, which removes both punctuation and spaces from the comparison.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-```java
-public static boolean canBecomePalindromeAfterRemovingAtMostOne(String value) {
-    if (value == null) {
-        return false;
-    }
+### 12. Check whether a string is a palindrome by considering only alphanumeric characters.
+- **Java solution:** `boolean result = PalindromeSolutions.NormalizedStringSolutions.isPalindromeAlphaNumeric("A man, a plan, a canal: Panama");`
+- **Explanation:** This is the standard "valid palindrome" interview variant.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-    int left = 0;
-    int right = value.length() - 1;
+### 13. Check whether a Unicode string is a palindrome after normalizing letter case.
+- **Java solution:** `boolean result = PalindromeSolutions.NormalizedStringSolutions.isUnicodeNormalizedPalindrome("Level");`
+- **Explanation:** Normalize Unicode text first, then compare code points instead of raw UTF-16 chars.
+- **Complexity:** Time `O(n)`, Space `O(n)` because normalization and code point conversion create derived data.
 
-    while (left < right) {
-        if (value.charAt(left) != value.charAt(right)) {
-            return isPalindromeRange(value, left + 1, right)
-                    || isPalindromeRange(value, left, right - 1);
-        }
-        left++;
-        right--;
-    }
-    return true;
-}
-
-private static boolean isPalindromeRange(String value, int left, int right) {
-    while (left < right) {
-        if (value.charAt(left) != value.charAt(right)) {
-            return false;
-        }
-        left++;
-        right--;
-    }
-    return true;
-}
-```
-
-### Explanation
-
-- Scan from both ends.
-- At the first mismatch, try skipping either the left character or the right character.
-- If either remaining substring is a palindrome, the answer is `true`.
-
-### Complexity
-
-- **Time:** `O(n)`
-- **Space:** `O(1)`
+### 14. Validate if a phrase like `"A man, a plan, a canal: Panama"` is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.NormalizedStringSolutions.isPalindromeAlphaNumeric("A man, a plan, a canal: Panama");`
+- **Explanation:** Ignore punctuation, spaces, and case so only meaningful mirrored characters remain.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
 ---
 
-## 4) Integer Palindrome Without Converting to a String
+## 3) Constraint-Based String Questions
 
-### Question
+### 15. Check if a string is a palindrome in `O(1)` extra space.
+- **Java solution:** `boolean result = PalindromeSolutions.ConstraintStringSolutions.isPalindromeO1Space("racecar");`
+- **Explanation:** Reuse the two-pointer scan so no extra reversed string or stack is needed.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-Check whether an integer is a palindrome without converting it to a string.
+### 16. Check if a string is a palindrome without creating another string.
+- **Java solution:** `boolean result = PalindromeSolutions.ConstraintStringSolutions.isPalindromeO1Space("abba");`
+- **Explanation:** Compare the original string in place through index access only.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-### Java Solution
+### 17. Check if a string is a palindrome using Java Streams.
+- **Java solution:** `boolean result = PalindromeSolutions.ConstraintStringSolutions.isPalindromeStream("level");`
+- **Explanation:** Stream over the left half of the indexes and compare each with its mirrored index.
+- **Complexity:** Time `O(n)`, Space `O(1)` extra.
 
-```java
-public static boolean isPalindromeWithoutString(int value) {
-    if (value < 0 || (value % 10 == 0 && value != 0)) {
-        return false;
-    }
+### 18. Check if a string is a palindrome using `StringBuilder`, then discuss why it is less optimal.
+- **Java solution:** `boolean result = PalindromeSolutions.ConstraintStringSolutions.isPalindromeWithStringBuilder("level");`
+- **Explanation:** This is concise, but it allocates a reversed copy, so it uses more memory than the two-pointer solution.
+- **Complexity:** Time `O(n)`, Space `O(n)`.
 
-    int reversedHalf = 0;
-    while (value > reversedHalf) {
-        reversedHalf = reversedHalf * 10 + value % 10;
-        value /= 10;
-    }
+### 19. Check if only a substring from index `l` to `r` is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.ConstraintStringSolutions.isSubstringPalindrome("abacaba", 1, 5);`
+- **Explanation:** Run the same mirrored comparison, but only inside the requested range.
+- **Complexity:** Time `O(r - l + 1)`, Space `O(1)`.
 
-    return value == reversedHalf || value == reversedHalf / 10;
-}
-```
+### 20. Check if a string can become a palindrome after removing at most one character.
+- **Java solution:** `boolean result = PalindromeSolutions.ConstraintStringSolutions.canBecomePalindromeAfterRemovingAtMostOne("abca");`
+- **Explanation:** At the first mismatch, try skipping either the left or the right character once.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-### Explanation
+### 21. Check if a string can become a palindrome after removing exactly one character.
+- **Java solution:** `boolean result = PalindromeSolutions.ConstraintStringSolutions.canBecomePalindromeAfterRemovingExactlyOne("abca");`
+- **Explanation:** The current implementation tries each possible removal and checks whether the remaining string is a palindrome.
+- **Complexity:** Time `O(n^2)`, Space `O(1)`.
 
-- Negative numbers are not treated as palindromes here.
-- Instead of reversing the whole number, reverse only half of it.
-- This avoids overflow risk and is more efficient than full reversal.
-- For odd-length numbers, ignore the middle digit with `reversedHalf / 10`.
-
-### Complexity
-
-- **Time:** `O(log10 n)`
-- **Space:** `O(1)`
-
----
-
-## 5) Palindrome in Arrays and Collections
-
-### Question
-
-Check whether an integer array is a palindrome.
-
-### Java Solution
-
-```java
-public static boolean isArrayPalindrome(int[] values) {
-    if (values == null) {
-        return false;
-    }
-
-    int left = 0;
-    int right = values.length - 1;
-
-    while (left < right) {
-        if (values[left] != values[right]) {
-            return false;
-        }
-        left++;
-        right--;
-    }
-    return true;
-}
-```
-
-### Explanation
-
-- The same two-pointer idea used for strings also works for arrays.
-- This pattern extends easily to `List<T>` by using `Objects.equals`.
-
-### Complexity
-
-- **Time:** `O(n)`
-- **Space:** `O(1)`
+### 22. Find the first index whose removal makes the string a palindrome, if possible.
+- **Java solution:** `int index = PalindromeSolutions.ConstraintStringSolutions.firstRemovalIndexForPalindrome("cabba");`
+- **Explanation:** Test each removal candidate from left to right and return the first one that works.
+- **Complexity:** Time `O(n^2)`, Space `O(1)`.
 
 ---
 
-## 6) Linked List Palindrome With List Restoration
+## 4) Number Palindrome Questions
 
-### Question
+### 23. Write a Java program to check whether an integer is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.NumberPalindromeSolutions.isPalindromeInt(12321);`
+- **Explanation:** This variant converts the integer to a string and reuses the basic string palindrome logic.
+- **Complexity:** Time `O(d)`, Space `O(d)`, where `d` is the number of digits.
 
-Check whether a singly linked list is a palindrome and restore the original list afterward.
+### 24. Check if a number is a palindrome without converting it to a string.
+- **Java solution:** `boolean result = PalindromeSolutions.NumberPalindromeSolutions.isPalindromeWithoutString(12321);`
+- **Explanation:** Reverse only half of the number, then compare the remaining half with the reversed half.
+- **Complexity:** Time `O(d)`, Space `O(1)`.
 
-### Java Solution
+### 25. Check if a long integer is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.NumberPalindromeSolutions.isPalindromeLong(123454321L);`
+- **Explanation:** Uses the same half-reversal technique as the `int` solution, but on `long`.
+- **Complexity:** Time `O(d)`, Space `O(1)`.
 
-```java
-static class SinglyNode {
-    int value;
-    SinglyNode next;
+### 26. Reverse an integer safely and use it to test whether the original number is a palindrome.
+- **Java solution:** `OptionalInt reversed = PalindromeSolutions.NumberPalindromeSolutions.reverseIntSafely(12321); boolean result = reversed.isPresent() && reversed.getAsInt() == 12321;`
+- **Explanation:** Reverse with overflow protection, then compare the reversed value with the original.
+- **Complexity:** Time `O(d)`, Space `O(1)`.
 
-    SinglyNode(int value) {
-        this.value = value;
-    }
-}
+### 27. Check whether a negative number should be treated as a palindrome and justify the rule.
+- **Java solution:** `boolean result = PalindromeSolutions.NumberPalindromeSolutions.isPalindromeWithNegativeRule(-121);`
+- **Explanation:** The implementation treats negative numbers as non-palindromes because the minus sign does not mirror on the right side.
+- **Complexity:** Time `O(d)`, Space `O(1)`.
 
-public static boolean isPalindromeAndRestore(SinglyNode head) {
-    if (head == null || head.next == null) {
-        return true;
-    }
+### 28. Check whether a number is a palindrome in binary representation.
+- **Java solution:** `boolean result = PalindromeSolutions.NumberPalindromeSolutions.isBinaryPalindrome(9);`
+- **Explanation:** Compare the most significant and least significant bits while moving inward.
+- **Complexity:** Time `O(log n)`, Space `O(1)`.
 
-    SinglyNode slow = head;
-    SinglyNode fast = head;
-    while (fast.next != null && fast.next.next != null) {
-        slow = slow.next;
-        fast = fast.next.next;
-    }
+### 29. Check whether a number is a palindrome in any given base `b`.
+- **Java solution:** `boolean result = PalindromeSolutions.NumberPalindromeSolutions.isPalindromeInBase(585, 2);`
+- **Explanation:** Convert the number into base `b` digits, then compare those digits from both ends.
+- **Complexity:** Time `O(log_b n)`, Space `O(log_b n)`.
 
-    SinglyNode secondHalf = reverseList(slow.next);
-    SinglyNode secondHalfHead = secondHalf;
-    SinglyNode firstHalf = head;
-    boolean matches = true;
+### 30. Count all palindrome numbers in a range `[L, R]`.
+- **Java solution:** `long count = PalindromeSolutions.NumberPalindromeSolutions.countPalindromeNumbersInRange(1, 200);`
+- **Explanation:** Scan the range and apply the numeric palindrome test to each value.
+- **Complexity:** Time `O((R - L + 1) * log R)`, Space `O(1)`.
 
-    while (secondHalf != null) {
-        if (firstHalf.value != secondHalf.value) {
-            matches = false;
-            break;
-        }
-        firstHalf = firstHalf.next;
-        secondHalf = secondHalf.next;
-    }
+### 31. Generate all palindrome numbers with `n` digits.
+- **Java solution:** `List<Long> values = PalindromeSolutions.NumberPalindromeSolutions.generateNDigitPalindromes(3);`
+- **Explanation:** Generate the first half of the digits, then mirror it to build the full palindrome.
+- **Complexity:** Time `O(10^(ceil(n / 2)))`, Space `O(10^(ceil(n / 2)))` including output.
 
-    slow.next = reverseList(secondHalfHead);
-    return matches;
-}
+### 32. Find the next palindrome number greater than a given integer.
+- **Java solution:** `long next = PalindromeSolutions.NumberPalindromeSolutions.nextPalindromeNumber(123);`
+- **Explanation:** The current implementation increments the value until it reaches the next palindrome.
+- **Complexity:** Time `O(gap * log n)` in the current implementation, where `gap` is the distance to the next palindrome; Space `O(1)`.
 
-private static SinglyNode reverseList(SinglyNode head) {
-    SinglyNode previous = null;
-    SinglyNode current = head;
-
-    while (current != null) {
-        SinglyNode next = current.next;
-        current.next = previous;
-        previous = current;
-        current = next;
-    }
-    return previous;
-}
-```
-
-### Explanation
-
-- Use slow/fast pointers to find the middle.
-- Reverse the second half of the list.
-- Compare the first half with the reversed second half.
-- Reverse again to restore the original structure.
-
-### Complexity
-
-- **Time:** `O(n)`
-- **Space:** `O(1)`
+### 33. Find the nearest palindrome number to a given integer.
+- **Java solution:** `long nearest = PalindromeSolutions.NumberPalindromeSolutions.nearestPalindromeNumber(123);`
+- **Explanation:** Search outward on both sides until a palindrome is found, preferring the lower one on ties.
+- **Complexity:** Time `O(gap * log n)` in the current implementation; Space `O(1)`.
 
 ---
 
-## 7) Longest Palindromic Substring
+## 5) Array and Collection Palindrome Questions
 
-### Question
+### 34. Check whether an integer array is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.ArrayCollectionSolutions.isArrayPalindrome(new int[]{1, 2, 3, 2, 1});`
+- **Explanation:** Compare the left and right ends of the array while moving inward.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-Find the longest palindromic substring in a string.
+### 35. Check whether a generic `List<T>` is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.ArrayCollectionSolutions.isListPalindrome(List.of("a", "b", "a"));`
+- **Explanation:** Compare list elements by value with `Objects.equals`.
+- **Complexity:** Time `O(n)` and Space `O(1)` assuming random-access lists such as `ArrayList`.
 
-### Java Solution
+### 36. Check whether an array is a palindrome in-place using two pointers.
+- **Java solution:** `boolean result = PalindromeSolutions.ArrayCollectionSolutions.isArrayPalindrome(new int[]{4, 5, 5, 4});`
+- **Explanation:** This is the in-place two-pointer version for arrays.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-```java
-public static String longestPalindromicSubstring(String value) {
-    if (value == null || value.isEmpty()) {
-        return "";
-    }
+### 37. Determine whether a deque of characters forms a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.ArrayCollectionSolutions.isDequePalindrome(new ArrayDeque<>(List.of('n', 'o', 'o', 'n')));`
+- **Explanation:** Remove matching elements from the front and the back until the deque is empty or a mismatch appears.
+- **Complexity:** Time `O(n)`, Space `O(n)` because the implementation copies the deque before testing it.
 
-    int bestStart = 0;
-    int bestEnd = 0;
+### 38. Check whether a list of strings is a palindrome by value comparison.
+- **Java solution:** `boolean result = PalindromeSolutions.ArrayCollectionSolutions.isListPalindrome(List.of("red", "blue", "red"));`
+- **Explanation:** This is the generic list palindrome check specialized to `String` values.
+- **Complexity:** Time `O(n)`, Space `O(1)` assuming random-access lists.
 
-    for (int center = 0; center < value.length(); center++) {
-        int[] odd = expandAroundCenter(value, center, center);
-        int[] even = expandAroundCenter(value, center, center + 1);
+### 39. Count how many subarrays of length `k` are palindromic.
+- **Java solution:** `long count = PalindromeSolutions.ArrayCollectionSolutions.countPalindromicSubarrays(new int[]{1, 2, 1, 2, 1}, 3);`
+- **Explanation:** Slide a window of length `k` and test each window with a two-pointer palindrome check.
+- **Complexity:** Time `O((n - k + 1) * k)`, Space `O(1)`.
 
-        if (odd[1] - odd[0] > bestEnd - bestStart) {
-            bestStart = odd[0];
-            bestEnd = odd[1];
-        }
-        if (even[1] - even[0] > bestEnd - bestStart) {
-            bestStart = even[0];
-            bestEnd = even[1];
-        }
-    }
-
-    return value.substring(bestStart, bestEnd + 1);
-}
-
-private static int[] expandAroundCenter(String value, int left, int right) {
-    while (left >= 0
-            && right < value.length()
-            && value.charAt(left) == value.charAt(right)) {
-        left--;
-        right++;
-    }
-    return new int[]{left + 1, right - 1};
-}
-```
-
-### Explanation
-
-- Every palindrome expands around a center.
-- Odd-length palindromes have one center character.
-- Even-length palindromes have a center gap between two characters.
-- Expand from every possible center and keep the best range.
-
-### Complexity
-
-- **Time:** `O(n^2)`
-- **Space:** `O(1)`
+### 40. Find the longest palindromic subarray in an integer array.
+- **Java solution:** `int[] best = PalindromeSolutions.ArrayCollectionSolutions.longestPalindromicSubarray(new int[]{1, 2, 3, 2, 1, 9});`
+- **Explanation:** Expand around every possible array center, just like longest palindromic substring.
+- **Complexity:** Time `O(n^2)`, Space `O(1)` extra.
 
 ---
 
-## 8) Count All Palindromic Substrings
+## 6) Linked List Palindrome Questions
 
-### Question
+### 41. Check whether a singly linked list is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.LinkedListSolutions.isPalindromeAndRestore(PalindromeSolutions.LinkedListSolutions.SinglyNode.of(1, 2, 3, 2, 1));`
+- **Explanation:** Reverse the second half, compare both halves, then restore the original list.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-Count all palindromic substrings in a given string.
+### 42. Check whether a singly linked list is a palindrome using a stack.
+- **Java solution:** `boolean result = PalindromeSolutions.LinkedListSolutions.isPalindromeWithStack(PalindromeSolutions.LinkedListSolutions.SinglyNode.of(1, 2, 1));`
+- **Explanation:** Push all node values onto a stack, then compare the popped order with the forward traversal.
+- **Complexity:** Time `O(n)`, Space `O(n)`.
 
-### Java Solution
+### 43. Check whether a singly linked list is a palindrome by reversing the second half.
+- **Java solution:** `boolean result = PalindromeSolutions.LinkedListSolutions.isPalindromeByReversingSecondHalf(PalindromeSolutions.LinkedListSolutions.SinglyNode.of(1, 2, 2, 1));`
+- **Explanation:** Find the midpoint with slow/fast pointers, reverse the second half, then compare both halves.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-```java
-public static long countPalindromicSubstrings(String value) {
-    if (value == null) {
-        return 0L;
-    }
+### 44. Restore the original linked list after palindrome checking.
+- **Java solution:** `boolean result = PalindromeSolutions.LinkedListSolutions.isPalindromeAndRestore(PalindromeSolutions.LinkedListSolutions.SinglyNode.of(1, 2, 3, 2, 1));`
+- **Explanation:** Reverse the second half a second time after comparison so the input list is unchanged.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-    long count = 0L;
-    for (int center = 0; center < value.length(); center++) {
-        count += countFromCenter(value, center, center);
-        count += countFromCenter(value, center, center + 1);
-    }
-    return count;
-}
+### 45. Check whether a doubly linked list is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.LinkedListSolutions.isDoublyListPalindrome(PalindromeSolutions.LinkedListSolutions.DoublyNode.of(1, 2, 3, 2, 1));`
+- **Explanation:** Walk from the head and the tail toward the center.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-private static int countFromCenter(String value, int left, int right) {
-    int count = 0;
-    while (left >= 0
-            && right < value.length()
-            && value.charAt(left) == value.charAt(right)) {
-        count++;
-        left--;
-        right++;
-    }
-    return count;
-}
-```
-
-### Explanation
-
-- This reuses the center-expansion idea.
-- Every time expansion succeeds, one more palindromic substring is found.
-- It is a common follow-up after the longest palindromic substring problem.
-
-### Complexity
-
-- **Time:** `O(n^2)`
-- **Space:** `O(1)`
+### 46. Check whether a circular linked list is a palindrome under one full traversal.
+- **Java solution:** `boolean result = PalindromeSolutions.LinkedListSolutions.isCircularListPalindrome(PalindromeSolutions.LinkedListSolutions.CircularNode.of(1, 2, 1), 3);`
+- **Explanation:** Read exactly one full cycle into a linear list, then use the standard list palindrome test.
+- **Complexity:** Time `O(n)`, Space `O(n)`.
 
 ---
 
-## 9) Longest Palindromic Subsequence
+## 7) Substring-Based Palindrome Questions
 
-### Question
+### 47. Find the longest palindromic substring in a string.
+- **Java solution:** `String best = PalindromeSolutions.SubstringSolutions.longestPalindromicSubstring("forgeeksskeegfor");`
+- **Explanation:** Expand around every odd and even center and keep the longest range.
+- **Complexity:** Time `O(n^2)`, Space `O(1)`.
 
-Find the length of the longest palindromic subsequence in a string.
+### 48. Count all palindromic substrings in a string.
+- **Java solution:** `long count = PalindromeSolutions.SubstringSolutions.countPalindromicSubstrings("aaa");`
+- **Explanation:** Every successful center expansion contributes one more palindromic substring.
+- **Complexity:** Time `O(n^2)`, Space `O(1)`.
 
-### Java Solution
+### 49. Print all distinct palindromic substrings of a string.
+- **Java solution:** `Set<String> values = PalindromeSolutions.SubstringSolutions.distinctPalindromicSubstrings("ababa");`
+- **Explanation:** Expand around centers and insert each discovered palindrome into a set so duplicates collapse.
+- **Complexity:** Time `O(n^3)` worst case because substring creation is output-sensitive in modern Java, Space `O(n^2)` worst case.
 
-```java
-public static int longestPalindromicSubsequenceLength(String value) {
-    if (value == null || value.isEmpty()) {
-        return 0;
-    }
+### 50. Find the length of the longest palindromic substring.
+- **Java solution:** `int length = PalindromeSolutions.SubstringSolutions.lengthOfLongestPalindromicSubstring("babad");`
+- **Explanation:** Reuse the longest-palindromic-substring logic and return only the length.
+- **Complexity:** Time `O(n^2)`, Space `O(1)`.
 
-    int n = value.length();
-    int[][] dp = new int[n][n];
+### 51. Return the starting index of the longest palindromic substring.
+- **Java solution:** `int index = PalindromeSolutions.SubstringSolutions.startIndexOfLongestPalindromicSubstring("forgeeksskeegfor");`
+- **Explanation:** Track the best palindrome range while expanding and return its starting boundary.
+- **Complexity:** Time `O(n^2)`, Space `O(1)`.
 
-    for (int start = n - 1; start >= 0; start--) {
-        dp[start][start] = 1;
-        for (int end = start + 1; end < n; end++) {
-            if (value.charAt(start) == value.charAt(end)) {
-                dp[start][end] = 2 + (start + 1 <= end - 1 ? dp[start + 1][end - 1] : 0);
-            } else {
-                dp[start][end] = Math.max(dp[start + 1][end], dp[start][end - 1]);
-            }
-        }
-    }
+### 52. Find the longest even-length palindromic substring.
+- **Java solution:** `String best = PalindromeSolutions.SubstringSolutions.longestEvenPalindromicSubstring("abccba");`
+- **Explanation:** Expand only around center gaps between adjacent characters.
+- **Complexity:** Time `O(n^2)`, Space `O(1)`.
 
-    return dp[0][n - 1];
-}
-```
+### 53. Find the longest odd-length palindromic substring.
+- **Java solution:** `String best = PalindromeSolutions.SubstringSolutions.longestOddPalindromicSubstring("bananas");`
+- **Explanation:** Expand only around single-character centers.
+- **Complexity:** Time `O(n^2)`, Space `O(1)`.
 
-### Explanation
+### 54. Find all palindromic substrings longer than length `k`.
+- **Java solution:** `List<String> values = PalindromeSolutions.SubstringSolutions.palindromicSubstringsLongerThan("abacdcaba", 2);`
+- **Explanation:** Expand around every center and keep only the substrings whose length is greater than `k`.
+- **Complexity:** Time `O(n^3)` worst case with substring materialization, Space `O(output)`.
 
-- A substring is contiguous, but a subsequence is not.
-- `dp[i][j]` stores the answer for the substring from `i` to `j`.
-- If the ends match, include both.
-- Otherwise, drop one end and take the better answer.
-
-### Complexity
-
-- **Time:** `O(n^2)`
-- **Space:** `O(n^2)`
-
----
-
-## 10) Minimum Cuts for Palindrome Partitioning
-
-### Question
-
-Given a string, partition it so every part is a palindrome and return the minimum number of cuts.
-
-### Java Solution
-
-```java
-public static int minCutPalindromePartition(String value) {
-    if (value == null || value.isEmpty()) {
-        return 0;
-    }
-
-    boolean[][] table = buildPalindromeTable(value);
-    int[] cuts = new int[value.length()];
-    Arrays.fill(cuts, Integer.MAX_VALUE / 4);
-
-    for (int end = 0; end < value.length(); end++) {
-        if (table[0][end]) {
-            cuts[end] = 0;
-            continue;
-        }
-
-        for (int start = 1; start <= end; start++) {
-            if (table[start][end]) {
-                cuts[end] = Math.min(cuts[end], cuts[start - 1] + 1);
-            }
-        }
-    }
-
-    return cuts[value.length() - 1];
-}
-
-private static boolean[][] buildPalindromeTable(String value) {
-    int n = value.length();
-    boolean[][] table = new boolean[n][n];
-
-    for (int start = n - 1; start >= 0; start--) {
-        table[start][start] = true;
-        for (int end = start + 1; end < n; end++) {
-            table[start][end] = value.charAt(start) == value.charAt(end)
-                    && (end - start == 1 || table[start + 1][end - 1]);
-        }
-    }
-    return table;
-}
-```
-
-### Explanation
-
-- First precompute which substrings are palindromes.
-- Then use `cuts[i]` to track the minimum cuts needed for `value[0..i]`.
-- If `value[start..end]` is a palindrome, that segment can be the last partition.
-
-### Complexity
-
-- **Time:** `O(n^2)`
-- **Space:** `O(n^2)`
+### 55. Count palindromic substrings for multiple test cases efficiently.
+- **Java solution:** `List<Long> counts = testCases.stream().map(PalindromeSolutions.SubstringSolutions::countPalindromicSubstrings).toList();`
+- **Explanation:** Apply the center-expansion counter to each test case; this is efficient enough for moderate input sizes.
+- **Complexity:** Time `O(sum_of_each_case_length^2)`, Space `O(1)` extra per test case.
 
 ---
 
-## 11) Build One Palindrome From the Characters of a String
+## 8) Subsequence and DP-Based Questions
 
-### Question
+### 56. Find the length of the longest palindromic subsequence.
+- **Java solution:** `int length = PalindromeSolutions.DynamicProgrammingSolutions.longestPalindromicSubsequenceLength("bbbab");`
+- **Explanation:** Use dynamic programming where `dp[i][j]` stores the best palindromic subsequence length inside the substring `i..j`.
+- **Complexity:** Time `O(n^2)`, Space `O(n^2)`.
 
-Rearrange the characters of a string to form one palindrome, if possible.
+### 57. Print one longest palindromic subsequence.
+- **Java solution:** `String lps = PalindromeSolutions.DynamicProgrammingSolutions.oneLongestPalindromicSubsequence("bbbab");`
+- **Explanation:** Reconstruct one valid answer by walking the filled DP table from both ends toward the center.
+- **Complexity:** Time `O(n^2)`, Space `O(n^2)`.
 
-### Java Solution
+### 58. Count the number of palindromic subsequences in a string.
+- **Java solution:** `long count = PalindromeSolutions.DynamicProgrammingSolutions.countPalindromicSubsequences("aaa");`
+- **Explanation:** DP counts palindromic subsequences by combining answers from smaller ranges and subtracting overlap when needed.
+- **Complexity:** Time `O(n^2)`, Space `O(n^2)`.
 
-```java
-public static String buildOnePalindrome(String value) {
-    if (value == null) {
-        return "";
-    }
+### 59. Find the minimum number of insertions needed to make a string a palindrome.
+- **Java solution:** `int answer = PalindromeSolutions.DynamicProgrammingSolutions.minInsertionsToPalindrome("abcda");`
+- **Explanation:** The minimum insertions equal `length - longest palindromic subsequence length`.
+- **Complexity:** Time `O(n^2)`, Space `O(n^2)`.
 
-    Map<Character, Integer> counts = new TreeMap<>();
-    for (char ch : value.toCharArray()) {
-        counts.merge(ch, 1, Integer::sum);
-    }
+### 60. Find the minimum number of deletions needed to make a string a palindrome.
+- **Java solution:** `int answer = PalindromeSolutions.DynamicProgrammingSolutions.minDeletionsToPalindrome("abcda");`
+- **Explanation:** This uses the same relation as insertions: remove every character not used by an optimal palindromic subsequence.
+- **Complexity:** Time `O(n^2)`, Space `O(n^2)`.
 
-    int oddCount = 0;
-    Character middle = null;
-    StringBuilder half = new StringBuilder();
+### 61. Find the minimum number of replacements needed to make a string a palindrome.
+- **Java solution:** `int answer = PalindromeSolutions.DynamicProgrammingSolutions.minReplacementsToPalindrome("abcdef");`
+- **Explanation:** Every mirrored mismatch can be fixed with one replacement, so count mismatched character pairs.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-    for (Map.Entry<Character, Integer> entry : counts.entrySet()) {
-        if ((entry.getValue() & 1) == 1) {
-            oddCount++;
-            middle = entry.getKey();
-        }
-        for (int i = 0; i < entry.getValue() / 2; i++) {
-            half.append(entry.getKey());
-        }
-    }
+### 62. Determine whether a string is a `k`-palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.DynamicProgrammingSolutions.isKPalindrome("abcdecba", 1);`
+- **Explanation:** A string is `k`-palindrome when it can become a palindrome after deleting at most `k` characters.
+- **Complexity:** Time `O(n^2)`, Space `O(n^2)`.
 
-    if (oddCount > 1) {
-        return "";
-    }
+### 63. Partition a string into palindromic substrings using dynamic programming.
+- **Java solution:** `List<List<String>> parts = PalindromeSolutions.DynamicProgrammingSolutions.palindromePartitions("aab");`
+- **Explanation:** Precompute palindrome ranges, then backtrack using that DP table to enumerate valid partitions.
+- **Complexity:** Time `O(n^2 + output_size)`, Space `O(n^2 + output_size)`.
 
-    String leftHalf = half.toString();
-    return leftHalf + (middle == null ? "" : middle) + new StringBuilder(leftHalf).reverse();
-}
-```
+### 64. Find the minimum cuts needed for palindrome partitioning.
+- **Java solution:** `int cuts = PalindromeSolutions.DynamicProgrammingSolutions.minCutPalindromePartition("aab");`
+- **Explanation:** Use a palindrome table plus `cuts[i]`, the fewest cuts needed for the prefix ending at `i`.
+- **Complexity:** Time `O(n^2)`, Space `O(n^2)`.
 
-### Explanation
-
-- At most one character may have an odd frequency.
-- Put half of each frequency on the left side.
-- Place the odd-frequency character in the middle if it exists.
-- Mirror the left half to build the right half.
-
-### Complexity
-
-- **Time:** `O(n log sigma)` with `TreeMap`, where `sigma` is the number of distinct characters
-- **Space:** `O(sigma)`
-
-> If lexicographic ordering is not needed, a `HashMap` version is effectively `O(n)`.
+### 65. Count the number of ways to partition a string so every part is a palindrome.
+- **Java solution:** `long ways = PalindromeSolutions.DynamicProgrammingSolutions.countPalindromePartitions("aab");`
+- **Explanation:** Dynamic programming accumulates how many valid palindrome partitions start at each index.
+- **Complexity:** Time `O(n^2)`, Space `O(n^2)`.
 
 ---
 
-## 12) Shortest Palindrome by Adding Characters in Front
+## 9) Rearrangement and Construction Questions
 
-### Question
+### 66. Check whether any permutation of a string can form a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.RearrangementConstructionSolutions.canPermutePalindrome("carrace");`
+- **Explanation:** At most one character may have an odd frequency if any permutation is going to be palindromic.
+- **Complexity:** Time `O(n log sigma)` in the current `TreeMap` implementation, Space `O(sigma)`.
 
-Construct the shortest palindrome by adding characters only to the front of the string.
+### 67. Rearrange the characters of a string to form one palindrome, if possible.
+- **Java solution:** `String value = PalindromeSolutions.RearrangementConstructionSolutions.buildOnePalindrome("aabbccd");`
+- **Explanation:** Put half of each frequency on the left, one odd-frequency character in the middle, and mirror the left half.
+- **Complexity:** Time `O(n log sigma)`, Space `O(sigma)`.
 
-### Java Solution
+### 68. Generate all palindromic permutations of a string.
+- **Java solution:** `List<String> values = PalindromeSolutions.RearrangementConstructionSolutions.generatePalindromicPermutations("aabb");`
+- **Explanation:** Generate unique permutations of the half-string, then mirror each one to build a full palindrome.
+- **Complexity:** Time `O(p * n)`, Space `O(p * n)`, where `p` is the number of generated palindromes.
 
-```java
-public static String shortestPalindromeByAddingFront(String value) {
-    if (value == null) {
-        return "";
-    }
+### 69. Build the longest possible palindrome using the characters of a string.
+- **Java solution:** `int length = PalindromeSolutions.RearrangementConstructionSolutions.longestPossiblePalindromeLength("abccccdd");`
+- **Explanation:** Use all even counts completely and, if any odd counts exist, place exactly one odd character in the center.
+- **Complexity:** Time `O(n log sigma)` in the current implementation, Space `O(sigma)`.
 
-    int prefixLength = longestPalindromicPrefixLength(value);
-    String suffix = value.substring(prefixLength);
-    return new StringBuilder(suffix).reverse() + value;
-}
+### 70. Build the lexicographically smallest palindrome from the given characters.
+- **Java solution:** `String value = PalindromeSolutions.RearrangementConstructionSolutions.lexicographicallySmallestPalindrome("aabbccd");`
+- **Explanation:** The implementation relies on sorted character frequencies so the left half is built in ascending order before mirroring.
+- **Complexity:** Time `O(n log sigma)`, Space `O(sigma)`.
 
-private static int longestPalindromicPrefixLength(String value) {
-    String reversed = new StringBuilder(value).reverse().toString();
-    String combined = value + "#" + reversed;
-    int[] lps = new int[combined.length()];
+### 71. Determine the minimum swaps needed to rearrange a string into a palindrome.
+- **Java solution (strategy snippet):** `String target = buildTargetPalindrome(value); int swaps = minArbitrarySwaps(source, target);`
+- **Explanation:** For arbitrary swaps, first choose a target palindromic arrangement, then compute the minimum swaps needed to transform the source permutation into that target, typically via position mapping and cycle counting.
+- **Complexity:** Time `O(n log n)` to `O(n^2)` depending on how duplicates are matched, Space `O(n)`.
 
-    for (int index = 1; index < combined.length(); index++) {
-        int length = lps[index - 1];
-        while (length > 0 && combined.charAt(index) != combined.charAt(length)) {
-            length = lps[length - 1];
-        }
-        if (combined.charAt(index) == combined.charAt(length)) {
-            length++;
-        }
-        lps[index] = length;
-    }
+### 72. Determine the minimum adjacent swaps needed to make a string a palindrome.
+- **Java solution:** `int swaps = PalindromeSolutions.RearrangementConstructionSolutions.minAdjacentSwapsToMakePalindrome("mamad");`
+- **Explanation:** Greedily bubble matching characters toward both ends; if no match exists, move the odd middle character inward one step.
+- **Complexity:** Time `O(n^2)`, Space `O(1)`.
 
-    return lps[combined.length() - 1];
-}
-```
+### 73. Add the minimum number of characters to the end of a string to make it a palindrome.
+- **Java solution:** `int count = PalindromeSolutions.RearrangementConstructionSolutions.minCharsToAppendAtEnd("abcd");`
+- **Explanation:** Find the earliest suffix that is already a palindrome; everything before it must be appended in reverse.
+- **Complexity:** Time `O(n^2)` in the current implementation, Space `O(1)`.
 
-### Explanation
+### 74. Add the minimum number of characters to the front of a string to make it a palindrome.
+- **Java solution:** `int count = PalindromeSolutions.RearrangementConstructionSolutions.minCharsToAddInFront("aacecaaa");`
+- **Explanation:** Compute the longest palindromic prefix, then add the reverse of the remaining suffix in front.
+- **Complexity:** Time `O(n)`, Space `O(n)`.
 
-- Find the longest prefix that is already a palindrome.
-- The remaining suffix must be mirrored and added to the front.
-- The KMP prefix table helps compute that longest palindromic prefix efficiently.
-
-### Complexity
-
-- **Time:** `O(n)`
-- **Space:** `O(n)`
-
----
-
-## 13) Palindrome Pairs in a List of Words
-
-### Question
-
-Given an array of words, find all index pairs whose concatenation is a palindrome.
-
-### Java Solution
-
-```java
-public static List<List<Integer>> palindromePairs(String[] words) {
-    if (words == null) {
-        return List.of();
-    }
-
-    Map<String, Integer> indexByWord = new HashMap<>();
-    for (int i = 0; i < words.length; i++) {
-        indexByWord.put(words[i], i);
-    }
-
-    List<List<Integer>> result = new ArrayList<>();
-    Set<String> seen = new HashSet<>();
-
-    for (int i = 0; i < words.length; i++) {
-        String word = words[i];
-
-        for (int cut = 0; cut <= word.length(); cut++) {
-            String prefix = word.substring(0, cut);
-            String suffix = word.substring(cut);
-
-            if (isPalindrome(prefix)) {
-                String needed = new StringBuilder(suffix).reverse().toString();
-                Integer match = indexByWord.get(needed);
-                if (match != null && match != i && seen.add(match + ":" + i)) {
-                    result.add(List.of(match, i));
-                }
-            }
-
-            if (cut != word.length() && isPalindrome(suffix)) {
-                String needed = new StringBuilder(prefix).reverse().toString();
-                Integer match = indexByWord.get(needed);
-                if (match != null && match != i && seen.add(i + ":" + match)) {
-                    result.add(List.of(i, match));
-                }
-            }
-        }
-    }
-
-    return result;
-}
-
-private static boolean isPalindrome(String value) {
-    int left = 0;
-    int right = value.length() - 1;
-    while (left < right) {
-        if (value.charAt(left) != value.charAt(right)) {
-            return false;
-        }
-        left++;
-        right--;
-    }
-    return true;
-}
-```
-
-### Explanation
-
-- Split every word into `prefix | suffix`.
-- If the prefix is a palindrome, the reversed suffix can be placed before the word.
-- If the suffix is a palindrome, the reversed prefix can be placed after the word.
-- A hash map makes reverse-lookups fast.
-
-### Complexity
-
-- **Time:** `O(n * k^2)`, where `n` is the number of words and `k` is the average word length
-- **Space:** `O(n * k)`
+### 75. Construct the shortest palindrome by adding characters in front of the string.
+- **Java solution:** `String value = PalindromeSolutions.RearrangementConstructionSolutions.shortestPalindromeByAddingFront("abcd");`
+- **Explanation:** This is the constructive form of question 74: reverse the non-palindromic suffix and prepend it.
+- **Complexity:** Time `O(n)`, Space `O(n)`.
 
 ---
 
-## 14) Count Palindromic Rows and Columns in a Matrix
+## 10) Pairing and Combination Questions
 
-### Question
+### 76. Given a list of words, find all pairs whose concatenation is a palindrome.
+- **Java solution:** `List<List<Integer>> pairs = PalindromeSolutions.PairingCombinationSolutions.palindromePairs(new String[]{"bat", "tab", "cat"});`
+- **Explanation:** Split each word into every possible prefix and suffix, then look up the reversed complement in a hash map.
+- **Complexity:** Time `O(n * k^2)`, Space `O(n * k)`.
 
-Count how many rows and columns of a matrix form palindromes.
+### 77. Count the number of palindrome pairs in an array of strings.
+- **Java solution:** `int count = PalindromeSolutions.PairingCombinationSolutions.countPalindromePairs(new String[]{"bat", "tab", "cat"});`
+- **Explanation:** Reuse the palindrome-pair generation logic and return the number of discovered index pairs.
+- **Complexity:** Time `O(n * k^2)`, Space `O(n * k)`.
 
-### Java Solution
+### 78. Check whether two given strings can be combined to form a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.PairingCombinationSolutions.canCombineToPalindrome("abc", "cba");`
+- **Explanation:** Test both concatenation orders because either `first + second` or `second + first` may be the palindrome.
+- **Complexity:** Time `O(n + m)`, Space `O(n + m)` in the current string-based implementation.
 
-```java
-public static long countPalindromicRowsAndColumns(char[][] matrix) {
-    return countPalindromicRows(matrix) + countPalindromicColumns(matrix);
-}
+### 79. Find the longest palindrome that can be formed by concatenating two strings.
+- **Java solution:** `String best = PalindromeSolutions.PairingCombinationSolutions.longestPalindromeFromConcatenatingTwoStrings("abaxy", "zyxf");`
+- **Explanation:** The current implementation checks both concatenation orders and returns the longest palindromic substring found inside them.
+- **Complexity:** Time `O((n + m)^2)`, Space `O(1)` extra beyond substring creation.
 
-private static long countPalindromicRows(char[][] matrix) {
-    long count = 0;
-    for (char[] row : matrix) {
-        if (isCharArrayPalindrome(row)) {
-            count++;
-        }
-    }
-    return count;
-}
-
-private static long countPalindromicColumns(char[][] matrix) {
-    long count = 0;
-    for (int column = 0; column < matrix[0].length; column++) {
-        int top = 0;
-        int bottom = matrix.length - 1;
-        boolean palindrome = true;
-
-        while (top < bottom) {
-            if (matrix[top][column] != matrix[bottom][column]) {
-                palindrome = false;
-                break;
-            }
-            top++;
-            bottom--;
-        }
-
-        if (palindrome) {
-            count++;
-        }
-    }
-    return count;
-}
-
-private static boolean isCharArrayPalindrome(char[] value) {
-    int left = 0;
-    int right = value.length - 1;
-    while (left < right) {
-        if (value[left] != value[right]) {
-            return false;
-        }
-        left++;
-        right--;
-    }
-    return true;
-}
-```
-
-### Explanation
-
-- A row palindrome is just a palindrome check on a `char[]`.
-- A column palindrome compares mirrored cells vertically.
-- This is a good extension problem after mastering string and array palindromes.
-
-### Complexity
-
-- **Time:** `O(r * c)`
-- **Space:** `O(1)`
-
-Where `r` is the number of rows and `c` is the number of columns.
+### 80. Build the longest palindrome from a list of two-letter words.
+- **Java solution:** `int length = PalindromeSolutions.PairingCombinationSolutions.longestPalindromeFromTwoLetterWords(new String[]{"lc", "cl", "gg"});`
+- **Explanation:** Pair a word with its reverse to contribute `4`, and optionally place one symmetric word like `"gg"` in the center.
+- **Complexity:** Time `O(w)`, Space `O(w)`, where `w` is the number of words.
 
 ---
 
-## 15) Multiple Palindrome Substring Queries Using Rolling Hash
+## 11) Matrix, Grid, and Pattern Variants
 
-### Question
+### 81. Check whether each row of a character matrix is a palindrome.
+- **Java solution:** `long rows = PalindromeSolutions.MatrixGridPatternSolutions.countPalindromicRows(matrix);`
+- **Explanation:** Test every row as a `char[]` palindrome and count how many succeed.
+- **Complexity:** Time `O(r * c)`, Space `O(1)`.
 
-Preprocess a string so that many queries `[l, r]` can be answered quickly for palindrome status.
+### 82. Check whether each column of a matrix is a palindrome.
+- **Java solution:** `long cols = PalindromeSolutions.MatrixGridPatternSolutions.countPalindromicColumns(matrix);`
+- **Explanation:** Compare mirrored cells from top and bottom for each column independently.
+- **Complexity:** Time `O(r * c)`, Space `O(1)`.
 
-### Java Solution
+### 83. Count palindromic rows and palindromic columns in a matrix.
+- **Java solution:** `long total = PalindromeSolutions.MatrixGridPatternSolutions.countPalindromicRowsAndColumns(matrix);`
+- **Explanation:** Sum the number of palindromic rows and the number of palindromic columns.
+- **Complexity:** Time `O(r * c)`, Space `O(1)`.
 
-```java
-static final class RollingHashPalindromeChecker {
-    private static final long MOD = 1_000_000_007L;
-    private static final long BASE = 911_382_323L;
+### 84. Determine whether a path string formed in a grid is a palindrome.
+- **Java solution:** `boolean result = PalindromeSolutions.MatrixGridPatternSolutions.isGridPathPalindrome("abccba");`
+- **Explanation:** Once the path labels are collected into a string, this reduces to the ordinary string palindrome check.
+- **Complexity:** Time `O(path_length)`, Space `O(1)` extra after the path string exists.
 
-    private final String value;
-    private final long[] powers;
-    private final long[] prefix;
-    private final long[] reversePrefix;
-
-    RollingHashPalindromeChecker(String value) {
-        this.value = value == null ? "" : value;
-        int n = this.value.length();
-        this.powers = new long[n + 1];
-        this.prefix = new long[n + 1];
-        this.reversePrefix = new long[n + 1];
-
-        powers[0] = 1L;
-        String reversed = new StringBuilder(this.value).reverse().toString();
-
-        for (int i = 0; i < n; i++) {
-            powers[i + 1] = (powers[i] * BASE) % MOD;
-            prefix[i + 1] = (prefix[i] * BASE + this.value.charAt(i)) % MOD;
-            reversePrefix[i + 1] = (reversePrefix[i] * BASE + reversed.charAt(i)) % MOD;
-        }
-    }
-
-    boolean isPalindrome(int left, int right) {
-        if (left < 0 || right >= value.length() || left > right) {
-            return false;
-        }
-
-        long forwardHash = rangeHash(prefix, left, right);
-        int reverseLeft = value.length() - 1 - right;
-        int reverseRight = value.length() - 1 - left;
-        long backwardHash = rangeHash(reversePrefix, reverseLeft, reverseRight);
-        return forwardHash == backwardHash;
-    }
-
-    private long rangeHash(long[] source, int left, int right) {
-        long hash = source[right + 1] - (source[left] * powers[right - left + 1]) % MOD;
-        return hash < 0 ? hash + MOD : hash;
-    }
-}
-```
-
-### Explanation
-
-- Precompute prefix hashes for the string and its reverse.
-- A substring is a palindrome when its forward hash equals the matching reverse hash.
-- This is useful when there are many queries on the same string.
-
-### Complexity
-
-- **Preprocessing Time:** `O(n)`
-- **Query Time:** `O(1)`
-- **Space:** `O(n)`
-
-> In strict production settings, double hashing is preferred to reduce collision risk.
+### 85. Find all palindromic diagonals in a square matrix.
+- **Java solution:** `List<String> values = PalindromeSolutions.MatrixGridPatternSolutions.palindromicDiagonals(matrix);`
+- **Explanation:** Collect diagonals in both directions and keep only the ones whose diagonal string reads the same forward and backward.
+- **Complexity:** Time `O(r * c * min(r, c))` in the current construction-heavy approach, Space `O(output)`.
 
 ---
 
-## 16) Split a String Into Exactly Three Palindromic Parts
+## 12) Hashing, Queries, and Large Input Questions
 
-### Question
+### 86. Answer multiple palindrome substring queries efficiently.
+- **Java solution:** `var checker = new PalindromeSolutions.HashingQuerySolutions.RollingHashPalindromeChecker("racecar"); boolean result = checker.isPalindrome(1, 5);`
+- **Explanation:** Preprocess rolling hashes once, then answer each palindrome substring query in constant time.
+- **Complexity:** Preprocessing `O(n)`, Query `O(1)`, Space `O(n)`.
 
-Determine whether a string can be split into exactly three palindromic substrings.
+### 87. Preprocess a string so each query `[l, r]` can be checked for palindrome status quickly.
+- **Java solution:** `var checker = new PalindromeSolutions.HashingQuerySolutions.RollingHashPalindromeChecker("abacaba");`
+- **Explanation:** The preprocessing step builds forward hashes, reverse hashes, and powers of the base.
+- **Complexity:** Preprocessing `O(n)`, Space `O(n)`.
 
-### Java Solution
+### 88. Use rolling hash to check whether substrings are palindromes.
+- **Java solution:** `boolean result = new PalindromeSolutions.HashingQuerySolutions.RollingHashPalindromeChecker("abacaba").isPalindrome(2, 4);`
+- **Explanation:** Compare the substring hash with the corresponding reversed-range hash.
+- **Complexity:** Preprocessing `O(n)`, Query `O(1)`, Space `O(n)`.
 
-```java
-public static boolean canSplitIntoThreePalindromes(String value) {
-    if (value == null || value.length() < 3) {
-        return false;
-    }
+### 89. Support updates to characters and answer palindrome range queries.
+- **Java solution:** `var engine = new PalindromeSolutions.HashingQuerySolutions.MutablePalindromeQueryEngine("racecar"); engine.update(3, 'e'); boolean result = engine.isPalindrome(0, 6);`
+- **Explanation:** The current implementation rebuilds the rolling-hash structure after every update, then answers range queries through hashing.
+- **Complexity:** Update `O(n)`, Query `O(1)`, Space `O(n)`.
 
-    boolean[][] table = buildPalindromeTable(value);
+### 90. Check whether a very large string is a palindrome when it cannot fit fully in memory.
+- **Java solution:** `boolean result = PalindromeSolutions.HashingQuerySolutions.isLargeAsciiFilePalindrome(Path.of("huge.txt"));`
+- **Explanation:** Use random access to compare bytes from the beginning and end of the file without loading the entire contents into RAM.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-    for (int firstEnd = 0; firstEnd < value.length() - 2; firstEnd++) {
-        if (!table[0][firstEnd]) {
-            continue;
-        }
+### 91. Check whether a stream of incoming characters currently forms a palindrome.
+- **Java solution:** `var stream = new PalindromeSolutions.HashingQuerySolutions.StreamPalindromeChecker(); stream.append('r'); stream.append('a'); stream.append('d'); stream.append('a'); stream.append('r'); boolean result = stream.isCurrentPalindrome();`
+- **Explanation:** Append incoming characters incrementally and test whether the currently collected string is a palindrome.
+- **Complexity:** Append `O(1)` amortized, current palindrome check `O(n)`, Space `O(n)`.
 
-        for (int secondEnd = firstEnd + 1; secondEnd < value.length() - 1; secondEnd++) {
-            if (table[firstEnd + 1][secondEnd]
-                    && table[secondEnd + 1][value.length() - 1]) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-private static boolean[][] buildPalindromeTable(String value) {
-    int n = value.length();
-    boolean[][] table = new boolean[n][n];
-
-    for (int start = n - 1; start >= 0; start--) {
-        table[start][start] = true;
-        for (int end = start + 1; end < n; end++) {
-            table[start][end] = value.charAt(start) == value.charAt(end)
-                    && (end - start == 1 || table[start + 1][end - 1]);
-        }
-    }
-    return table;
-}
-```
-
-### Explanation
-
-- Precompute palindrome status for every substring.
-- Try every possible end for the first and second part.
-- Check whether all three resulting pieces are palindromes.
-
-### Complexity
-
-- **Time:** `O(n^2)`
-- **Space:** `O(n^2)`
+### 92. Design a data structure that supports append and palindrome-check operations.
+- **Java solution:** `var engine = new PalindromeSolutions.HashingQuerySolutions.MutablePalindromeQueryEngine("ab"); engine.append('a'); boolean result = engine.isPalindrome(0, engine.currentValue().length() - 1);`
+- **Explanation:** This data structure supports appends, optional indexed updates, and fast palindrome queries over the maintained string.
+- **Complexity:** Append `O(n)` in the current rebuild-based implementation, Query `O(1)`, Space `O(n)`.
 
 ---
 
-## 17) Largest Palindromic Number From a String of Digits
+## 13) Advanced Interview and Competitive Coding Questions
 
-### Question
+### 93. Find the shortest palindrome by adding characters only at the front.
+- **Java solution:** `String value = PalindromeSolutions.RearrangementConstructionSolutions.shortestPalindromeByAddingFront("abcd");`
+- **Explanation:** This is the same optimized KMP-based construction used in question 75.
+- **Complexity:** Time `O(n)`, Space `O(n)`.
 
-Given a string of digits, build the largest palindromic number possible.
+### 94. Find the longest palindrome that can be formed from a multiset of characters.
+- **Java solution:** `int length = PalindromeSolutions.RearrangementConstructionSolutions.longestPossiblePalindromeLength("abccccdd");`
+- **Explanation:** A multiset version is frequency-based: use all even counts and possibly one odd count in the center.
+- **Complexity:** Time `O(n log sigma)` in the current implementation, Space `O(sigma)`.
 
-### Java Solution
+### 95. Find the maximum product of lengths of two disjoint palindromic subsequences.
+- **Java solution:** `int answer = PalindromeSolutions.AdvancedSolutions.maxProductOfTwoDisjointPalindromicSubsequences("leetcodecom");`
+- **Explanation:** Enumerate subsequences by bitmask, record which masks form palindromes, then combine disjoint masks for the best product.
+- **Complexity:** Time `O(n * 2^n)`, Space `O(2^n)`, practical only for short strings.
 
-```java
-public static String largestPalindromicNumber(String digits) {
-    if (digits == null || digits.isEmpty()) {
-        return "";
-    }
+### 96. Count "super palindromes" where both the number and its square are palindromes.
+- **Java solution:** `int count = PalindromeSolutions.AdvancedSolutions.countSuperPalindromes(1L, 100000L);`
+- **Explanation:** Generate palindromic roots directly, square them, and test whether the square is also palindromic.
+- **Complexity:** Time depends on the number of generated palindromic roots up to `sqrt(R)`; each test is logarithmic in the numeric value. Extra space is `O(1)`.
 
-    int[] counts = new int[10];
-    for (char ch : digits.toCharArray()) {
-        counts[ch - '0']++;
-    }
+### 97. Find the largest palindromic number that can be formed from the digits of a string.
+- **Java solution:** `String value = PalindromeSolutions.AdvancedSolutions.largestPalindromicNumber("444947137");`
+- **Explanation:** Build the left half greedily from the largest digits, keep the largest leftover digit for the center, and mirror the left half.
+- **Complexity:** Time `O(n)`, Space `O(1)` extra beyond output.
 
-    StringBuilder left = new StringBuilder();
-    for (int digit = 9; digit >= 0; digit--) {
-        int pairs = counts[digit] / 2;
-        if (digit == 0 && left.length() == 0) {
-            continue;
-        }
-        for (int i = 0; i < pairs; i++) {
-            left.append(digit);
-        }
-        counts[digit] -= pairs * 2;
-    }
+### 98. Find the smallest palindromic number larger than a given numeric string.
+- **Java solution:** `String value = PalindromeSolutions.AdvancedSolutions.smallestPalindromicNumberLargerThan("23545");`
+- **Explanation:** Mirror the left half to the right; if the result is not strictly larger, increment the middle and propagate carry outward.
+- **Complexity:** Time `O(n)`, Space `O(n)` for the character array and returned string.
 
-    int middle = -1;
-    for (int digit = 9; digit >= 0; digit--) {
-        if (counts[digit] > 0) {
-            middle = digit;
-            break;
-        }
-    }
+### 99. Determine whether a string can be split into exactly three palindromic substrings.
+- **Java solution:** `boolean result = PalindromeSolutions.AdvancedSolutions.canSplitIntoThreePalindromes("abcbdd");`
+- **Explanation:** Precompute palindrome ranges and try every valid first and second cut.
+- **Complexity:** Time `O(n^2)`, Space `O(n^2)`.
 
-    if (left.length() == 0) {
-        if (middle != -1) {
-            return Integer.toString(middle);
-        }
-        return digits.indexOf('0') >= 0 ? "0" : "";
-    }
+### 100. Find all ways to partition a string into exactly `k` palindromic parts.
+- **Java solution:** `List<List<String>> parts = PalindromeSolutions.AdvancedSolutions.partitionsIntoKPalindromes("aab", 2);`
+- **Explanation:** Use the palindrome DP table with backtracking, but stop recursion after exactly `k` parts.
+- **Complexity:** Time `O(n^2 + output_size)`, Space `O(n^2 + output_size)`.
 
-    String leftHalf = left.toString();
-    String rightHalf = new StringBuilder(leftHalf).reverse().toString();
-    return leftHalf + (middle == -1 ? "" : middle) + rightHalf;
-}
-```
+### 101. Given a string, maximize palindrome length after at most `k` character changes.
+- **Java solution:** `int length = PalindromeSolutions.AdvancedSolutions.maxPalindromeLengthAfterAtMostKChanges("abcdef", 2);`
+- **Explanation:** Each change can fix one mismatched mirrored pair, so the current implementation counts mismatches and measures how much of the string can be made palindromic.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-### Explanation
+### 102. Given two strings, find the longest palindromic subsequence using characters from both.
+- **Java solution:** `int length = PalindromeSolutions.AdvancedSolutions.longestPalindromicSubsequenceUsingBothStrings("cacb", "cbba");`
+- **Explanation:** Run LPS DP on the concatenated string, but only accept subsequences that start in the first string and end in the second.
+- **Complexity:** Time `O((n + m)^2)`, Space `O((n + m)^2)`.
 
-- Use the largest digits first to maximize the left half.
-- Keep one highest remaining digit for the middle if possible.
-- Mirror the left half to build the right half.
-- Avoid leading zeroes unless the answer is just `"0"`.
+### 103. Count palindromic paths in a tree or graph where labels are characters.
+- **Java solution (strategy snippet):** `int count = countPseudoPalindromicPaths(root, 0);`
+- **Explanation:** A common tree variant tracks the parity of character counts along each root-to-node path with a bitmask; a path can form a palindrome if at most one bit is set in the final mask. For general graphs, add visited-state handling to avoid cycles.
+- **Complexity:** Tree version `O(V + E)` time and `O(H)` recursion space, where `H` is tree height. General graphs depend on traversal constraints.
 
-### Complexity
+### 104. Check whether a sentence remains a palindrome after applying a series of character updates.
+- **Java solution:** `var engine = new PalindromeSolutions.HashingQuerySolutions.MutablePalindromeQueryEngine("neveroddoreven"); engine.update(5, 'x'); boolean result = engine.isPalindrome(0, engine.currentValue().length() - 1);`
+- **Explanation:** After each update, rebuild the query structure and test the full current range. If the interview ignores punctuation or spaces, normalize the sentence before storing it.
+- **Complexity:** Update `O(n)`, Query `O(1)`, Space `O(n)`.
 
-- **Time:** `O(n)`
-- **Space:** `O(1)` extra, ignoring output construction
-
----
-
-## 18) Follow-Up: Palindrome Check for `char[]`
-
-### Question
-
-Solve the palindrome check problem for mutable input such as `char[]`, without using `reverse()`.
-
-### Java Solution
-
-```java
-public static boolean isCharArrayPalindrome(char[] value) {
-    if (value == null) {
-        return false;
-    }
-
-    int left = 0;
-    int right = value.length - 1;
-
-    while (left < right) {
-        if (value[left] != value[right]) {
-            return false;
-        }
-        left++;
-        right--;
-    }
-    return true;
-}
-```
-
-### Explanation
-
-- This is the same two-pointer pattern as the string version.
-- It is a common interview follow-up because it avoids immutable string helpers.
-- The idea also generalizes to arrays and lists.
-
-### Complexity
-
-- **Time:** `O(n)`
-- **Space:** `O(1)`
+### 105. Find the minimum operations needed to transform one string into a palindrome.
+- **Java solution:** `int ops = PalindromeSolutions.AdvancedSolutions.minOperationsToTransformToPalindrome("abcda");`
+- **Explanation:** In this repository, "operations" are modeled as insertions, which is the classic DP interview version.
+- **Complexity:** Time `O(n^2)`, Space `O(n^2)`.
 
 ---
 
-## Quick Interview Notes
+## 14) Popular Follow-Up Variations for Interviews
 
-### Common patterns you should know
+### 106. Solve the basic palindrome problem first, then optimize for `O(1)` extra space.
+- **Java solution:** `boolean result = PalindromeSolutions.InterviewFollowUps.isPalindromeO1Space("level");`
+- **Explanation:** The optimized answer is the two-pointer scan, which avoids stacks, recursion, or reversed copies.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-- **Two pointers:** basic string, array, and mutable input palindrome checks
-- **Normalization:** ignore spaces, punctuation, or case
-- **Expand around center:** longest palindromic substring, count palindromic substrings
-- **Dynamic programming:** subsequences, partitioning, minimum cuts
-- **Frequency counting:** rearrangement and palindrome construction
-- **Reversal of second half:** linked list palindrome
-- **Hashing / preprocessing:** fast substring queries
+### 107. Solve palindrome checking without using library helpers such as `reverse()`.
+- **Java solution:** `boolean result = PalindromeSolutions.InterviewFollowUps.isPalindromeNoLibraryHelpers("radar");`
+- **Explanation:** Compare the original string directly from both ends instead of calling helper APIs.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-### Common edge cases
+### 108. Solve the same problem for mutable input such as `char[]`.
+- **Java solution:** `boolean result = PalindromeSolutions.InterviewFollowUps.isPalindromeMutable(new char[]{'n', 'o', 'o', 'n'});`
+- **Explanation:** The same mirrored comparison works on mutable arrays and is a common follow-up in interviews.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-- `null` input
-- empty string
-- single character
-- negative numbers
-- numbers ending in `0`
-- duplicate words in palindrome pair problems
-- leading zeroes in numeric palindrome construction
+### 109. Explain the trade-offs between iterative, recursive, stack-based, and stream-based solutions.
+- **Java solution:** `boolean a = PalindromeSolutions.BasicStringSolutions.isPalindrome("level"); boolean b = PalindromeSolutions.BasicStringSolutions.isPalindromeRecursive("level"); boolean c = PalindromeSolutions.BasicStringSolutions.isPalindromeWithStack("level"); boolean d = PalindromeSolutions.ConstraintStringSolutions.isPalindromeStream("level");`
+- **Explanation:** Iterative two pointers are usually best for interviews because they are simple and `O(1)` space. Recursion is elegant but uses the call stack. Stack-based solutions are easy to reason about but use extra memory. Streams are concise but usually less direct and less performance-oriented.
+- **Complexity:** Iterative `O(n)/O(1)`, Recursive `O(n)/O(n)`, Stack `O(n)/O(n)`, Stream `O(n)/O(1)` extra.
 
-### Where to find the full implementations
+### 110. Modify the solution to ignore case, spaces, punctuation, or all non-alphanumeric characters.
+- **Java solution:** `boolean result = PalindromeSolutions.InterviewFollowUps.isPalindromeIgnoringNoise("A man, a plan, a canal: Panama");`
+- **Explanation:** Normalize the comparison by skipping irrelevant characters and lowercasing letters before comparing.
+- **Complexity:** Time `O(n)`, Space `O(1)`.
 
-The runnable source file already added to the repository contains these methods and more:
+### 111. Extend the solution from strings to arrays, lists, and linked lists.
+- **Java solution:** `boolean arrayOk = PalindromeSolutions.ArrayCollectionSolutions.isArrayPalindrome(new int[]{1, 2, 1}); boolean listOk = PalindromeSolutions.ArrayCollectionSolutions.isListPalindrome(List.of("x", "y", "x")); boolean linkedOk = PalindromeSolutions.LinkedListSolutions.isPalindromeAndRestore(PalindromeSolutions.LinkedListSolutions.SinglyNode.of(1, 2, 1));`
+- **Explanation:** The core palindrome idea stays the same: compare mirrored positions. Only the access pattern changes depending on the data structure.
+- **Complexity:** Arrays/lists `O(n)` time, linked lists `O(n)` time; extra space ranges from `O(1)` to `O(n)` depending on the chosen linked-list technique.
 
-- `BasicStringSolutions`
-- `NormalizedStringSolutions`
-- `ConstraintStringSolutions`
-- `NumberPalindromeSolutions`
-- `ArrayCollectionSolutions`
-- `LinkedListSolutions`
-- `SubstringSolutions`
-- `DynamicProgrammingSolutions`
-- `RearrangementConstructionSolutions`
-- `PairingCombinationSolutions`
-- `MatrixGridPatternSolutions`
-- `HashingQuerySolutions`
-- `AdvancedSolutions`
-- `InterviewFollowUps`
+### 112. Optimize from brute force to dynamic programming for substring and subsequence problems.
+- **Java solution:** `String bestSubstring = PalindromeSolutions.SubstringSolutions.longestPalindromicSubstring("babad"); int bestSubsequence = PalindromeSolutions.DynamicProgrammingSolutions.longestPalindromicSubsequenceLength("bbbab");`
+- **Explanation:** Brute force checks every candidate range or subsequence and quickly becomes too slow. For substrings, center expansion reduces unnecessary checks. For subsequences and partitioning, dynamic programming reuses overlapping subproblems.
+- **Complexity:** Brute-force substring approaches are typically `O(n^3)` or worse; optimized substring and DP subsequence solutions are `O(n^2)`.
+
+### 113. Discuss edge cases such as empty strings, single characters, null input, negative numbers, and overflow.
+- **Java solution:** `boolean empty = PalindromeSolutions.BasicStringSolutions.isPalindrome(""); boolean single = PalindromeSolutions.BasicStringSolutions.isPalindrome("a"); boolean negative = PalindromeSolutions.NumberPalindromeSolutions.isPalindromeWithNegativeRule(-121); OptionalInt reversed = PalindromeSolutions.NumberPalindromeSolutions.reverseIntSafely(Integer.MAX_VALUE);`
+- **Explanation:** Production-ready solutions should define clear behavior for `null`, accept empty and single-character palindromes where appropriate, reject negative numeric palindromes under the signed-number rule, and guard integer reversal against overflow.
+- **Complexity:** Edge-case handling adds `O(1)` overhead on top of the main algorithm.
